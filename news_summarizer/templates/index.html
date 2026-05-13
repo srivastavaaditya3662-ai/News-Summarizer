@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI News Summarizer</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>
+        <span class="icon">📰</span>
+        <span class="title-text">AI News Summarizer</span>
+    </h1>
+
+    <p class="subtitle">AI-powered summarization with smart clarity</p>
+
+    <!-- INPUT -->
+    <div class="input-box">
+        <textarea id="newsText" placeholder="Paste your news article here..."></textarea>
+
+        <div class="controls">
+            <select id="language">
+                <option value="en">English</option>
+                <option value="hi">Hindi</option>
+                <option value="fr">French</option>
+                <option value="es">Spanish</option>
+            </select>
+
+            <button onclick="summarizeNews()">
+                <span class="btn-icon">⚡</span>
+                Generate Summary
+            </button>
+        </div>
+    </div>
+
+    <!-- OUTPUT -->
+    <div class="output-box">
+        <div class="output-header">
+            <h3>Summary</h3>
+            <button onclick="copyText()" class="copy-btn">Copy</button>
+        </div>
+
+        <div id="result">Your AI summary will appear here...</div>
+    </div>
+
+</div>
+
+<script>
+async function summarizeNews() {
+    const text = document.getElementById("newsText").value;
+    const language = document.getElementById("language").value;
+
+    if (!text) {
+        alert("Enter text first!");
+        return;
+    }
+
+    document.getElementById("result").innerText = "Processing...";
+
+    const res = await fetch("/summarize", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ text, language })
+    });
+
+    const data = await res.json();
+    document.getElementById("result").innerText = data.summary || data.error;
+}
+
+function copyText() {
+    const text = document.getElementById("result").innerText;
+    navigator.clipboard.writeText(text);
+}
+</script>
+
+</body>
+</html>
