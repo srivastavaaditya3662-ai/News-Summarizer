@@ -1,4 +1,4 @@
-# 📰 AI News Summarizer using Azure Cognitive Services
+# 📰 AI News Summarizer
 
 An intelligent web application that summarizes news articles and translates them into multiple languages using Microsoft Azure Cognitive Services.
 
