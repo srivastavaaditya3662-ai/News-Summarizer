@@ -1,0 +1,4 @@
+flask==3.0.3
+azure-ai-textanalytics==5.3.0
+azure-ai-translation-text==1.0.0b1
+azure-core==1.30.2
